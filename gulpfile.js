@@ -4,7 +4,6 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 
-// Путь к вашим файлам
 const paths = {
     scss: {
         src: 'src/style/*.scss',
@@ -32,7 +31,6 @@ const paths = {
     }
 };
 
-// Задача для компиляции SCSS
 function styles() {
     return gulp.src(paths.scss.src)
         .pipe(sourcemaps.init())
@@ -42,7 +40,6 @@ function styles() {
         .pipe(gulp.dest(paths.scss.dest));
 }
 
-// Задача для минификации JS
 function scripts() {
     return gulp.src(paths.js.src)
         .pipe(sourcemaps.init())
@@ -52,7 +49,7 @@ function scripts() {
         .pipe(gulp.dest(paths.js.dest));
 }
 
-// Задача для копирования шрифтов
+
 function fonts() {
     return gulp.src(paths.fonts.src, { encoding: false })
         .pipe(gulp.dest(paths.fonts.dest));
@@ -67,13 +64,13 @@ function css() {
     return gulp.src(paths.css.src)
         .pipe(gulp.dest(paths.css.dest));
 }
-// Задача для копирования изображений
+
 function images() {
     return gulp.src(paths.img.src, { encoding: false })
         .pipe(gulp.dest(paths.img.dest));
 }
 
-// Задача для наблюдения за изменениями
+
 function watchFiles() {
     gulp.watch(paths.scss.src, styles);
     gulp.watch(paths.js.src, scripts);
@@ -83,6 +80,5 @@ function watchFiles() {
     gulp.watch(paths.css.src, css);
 }
 
-// Экспортируем задачи
 const build = gulp.series(gulp.parallel(styles, scripts, fonts, images, html, css));
 gulp.task('default', gulp.series(build, watchFiles));
